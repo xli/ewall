@@ -1,0 +1,12 @@
+<%- if @snapshot.analyzed? -%>
+  <%= render :partial => 'show', :locals => { snapshot: @snapshot } %>
+<%- else -%>
+  <h3>Analysis in progress</h3>
+  <div class='well'>
+  <p>First, EWall tries to find out all cards on your snapshot picture.</p>
+  <p>Second, EWall tries to identifier each card image by matching with cards in previous snapshots.</p>
+  </div>
+  <div class="snapshot-analysis progress progress-striped active">
+    <div class="bar" style="width: <%= @snapshot.in_analysis %>%;"></div>
+  </div>
+<%- end -%>

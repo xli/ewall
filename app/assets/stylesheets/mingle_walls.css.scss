@@ -1,0 +1,64 @@
+// Place all the styles related to the mingle_walls controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#mingle_wall {
+  width: 100%;
+  overflow: none;
+  border-spacing: 0;
+  
+  thead th {
+    font-weight: bold;
+    font-size: 11px;
+    padding: 5px 5px 15px;
+    text-align:center;
+    border: 1px solid #CCC;
+    width: 8%;
+  }
+  
+  .highlight {
+    background-color: #FFFCCC;
+  }
+
+  td {
+    border: 1px solid #CCC;
+    line-height: 12px;
+    vertical-align: top;
+    height:100%;
+    padding: 0;
+    margin: 0;
+
+    .card-summary-number
+    {
+      color: #ef6500;
+      float: right;
+      font-weight: bold;
+      margin: 0 0 0 5px;
+    }
+  
+    .card-icon {
+      background-color:#FFFFFF;
+      border: 1px solid #DDD;
+      color: #333;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      display:inline;
+      float: left;
+      cursor: move;
+      margin: 3px;
+      padding: 5px;
+      height: 60px;
+      width: 90px;
+      font: 10px;
+      overflow:hidden;
+    }
+
+    .card-icon:hover {
+        border: 1px solid #CCC;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        -moz-box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+  }
+}

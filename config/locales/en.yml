@@ -1,0 +1,11 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  helpers:
+    links:
+      upload_first_snapshot: "Take a picture of your card wall and upload it"
+      next: "Next →"
+    label:
+      snapshot:
+        file: "Take a picture of your card wall"

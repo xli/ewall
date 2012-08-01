@@ -1,0 +1,14 @@
+<div class="row-fluid">
+  <%= form_for [@wall, Snapshot.new], :html => { :multipart => true } do |f| -%>
+    <div class="control-group">
+      <%= f.label :file, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.file_field :file, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit 'Upload', :class => 'btn btn-primary' %>
+    </div>
+  <% end -%>
+</div>

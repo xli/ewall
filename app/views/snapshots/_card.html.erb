@@ -1,0 +1,12 @@
+<li class="ui-widget-content ui-corner-all card <%= 'new-card' if card.new_card? %>">
+  <%= image_tag(card.image, card.data) %>
+  <a href="#" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
+  <a href="#" title="<%= card.identifier %>" class='card-identifier'><%= card.identifier.to_s.truncate(10) %></a>
+  <%- unless card.positive.nil? -%>
+    <%- if card.positive -%>
+      <a href="#" title="Delete this image" class="ui-icon ui-icon-trash">Delete image</a>
+    <%- else -%>
+      <a href='#' title='Recycle this image' class='ui-icon ui-icon-refresh'>Recycle image</a>
+    <%- end -%>
+  <%- end -%>
+</li>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  image: 
+  identifier: 
+  x: 10
+  y: 20
+  width: 90
+  height: 60
+  snapshot: one
+  positive: 
+
+two:
+  image: 
+  identifier: 1
+  x: 100
+  y: 200
+  width: 90
+  height: 60
+  snapshot: one
+  positive: 

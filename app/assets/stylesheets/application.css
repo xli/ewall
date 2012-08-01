@@ -1,0 +1,54 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require jquery.ui.all
+ *= require_tree .
+ */
+
+#brand {
+ color: black;
+ margin-left: 20px;
+ margin-right: 20px;
+ font-weight: bold;
+ text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
+ -webkit-transition: all .2s linear;
+ -moz-transition: all .2s linear;
+ transition: all .2s linear;
+}
+#brand:hover {
+  color: #fff;
+}
+#brand.active {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #222222;
+}
+
+footer {
+  border-top: 1px solid #ccc;
+  margin-top: 50px;
+  padding-top: 15px;
+}
+
+#nav-well {
+  padding: 8px 0;
+}
+
+img.card {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  max-height: 90px;
+}
+
+
+section {
+  padding-top: 60px;
+}

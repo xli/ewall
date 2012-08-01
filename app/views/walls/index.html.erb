@@ -1,0 +1,21 @@
+<%- model_class = Wall.new.class -%>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @walls.each do |wall| %>
+      <tr>
+        <td><%= link_to wall.name, wall_path(wall) %> <%= "(Locked)" if wall.locked? %></td>
+        <td><%=l wall.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_wall_path,
+            :class => 'btn btn-primary' %>

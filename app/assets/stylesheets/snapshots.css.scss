@@ -1,0 +1,66 @@
+// Place all the styles related to the Snapshots controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#label_new_cards {
+  img.card {
+    width: 256px;
+    max-height: 500px; /* release max-height limit */
+    float: left;
+  }
+  img.typeahead-img {
+    width: 256px;
+  }
+  img[src='/images/loading.gif'] {
+    width: 64px;
+  }
+  .icon-arrow-right {
+    float: left;
+    padding: 5px;
+  }
+  .img-div {
+    float: left;
+    padding: 10px;
+    border: 1px solid gray;
+  }
+  form {
+    float: left;
+  }
+  button {
+    margin-top: 35px;
+  }
+}
+
+#dup_cards {
+  float: right;
+  padding: 1%;
+  position: fixed;
+  right: 15px;
+  top: 400px;
+  height: 150px;
+  width: 180px;
+}
+#dup_cards h4 { line-height: 16px; margin: 0 0 0.4em; }
+
+.typeahead, .dropdown-menu {
+  z-index: 1003;
+}
+
+.columns {
+  background-color: #111;
+  table {
+    width: 100%;
+    color: white;
+    img {
+      margin-top: 3px;
+      margin-bottom: 3px;
+      max-height: 90px;
+    }
+    td {
+      border-top: 1px solid #DDD;
+      padding: 8px;
+      line-height: 18px;
+      vertical-align: top;
+    }
+  }
+}

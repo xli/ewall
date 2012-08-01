@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="span10">
+    <h3>
+      Mingle Wall: <%= @wall.mingle_wall.url %>
+      <small>Login: <%= @wall.mingle_wall.login %></small>
+    </h3>
+  </div>
+  <div class="span2">
+    <%= link_to 'Edit', edit_wall_mingle_wall_path(@wall, @wall.mingle_wall), :method => :get, :class => 'btn btn-mini' %>
+    <%= link_to 'Destroy', wall_mingle_wall_path(@wall, @wall.mingle_wall), :method => :delete, :data => {:confirm => 'Are you sure?'}, :class => 'btn btn-mini' %>
+  </div>
+</div>
+
+<div id="mingle_wall" class="row" data-uri="<%= wall_mingle_wall_pull_path(@wall, @wall.mingle_wall) %>">
+  <div class="span12">
+    Loading... <%= image_tag '/images/loading.gif'%>
+  </div>
+</div>

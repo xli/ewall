@@ -1,0 +1,2 @@
+$('#snapshots_difference').html("<%= escape_javascript(render(:partial => 'columns_diff', :locals => { grid: @grid, changes: @changes })) %>");
+showDiff();

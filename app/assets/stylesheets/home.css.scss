@@ -1,0 +1,15 @@
+// Place all the styles related to the home controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.home-what-change {
+  background: transparent url(/assets/overview/b.png) no-repeat;
+  padding-left: 105px;
+  height: 130px;
+}
+
+.home-steps {
+  li {
+    line-height: 40px;
+  }
+}

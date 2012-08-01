@@ -1,0 +1,49 @@
+// Place all the styles related to the Walls controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.snapshots-list {
+  float: left;
+  margin-left: 5px
+}
+.columns-diff {
+  background-color: #111;
+  .removed-cards {
+    border-top: 0px;
+    background-color: #333;
+  }
+  table {
+    width: 100%;
+    color: white;
+    .highlight {
+      background-color: #555;
+    }
+    img {
+      margin-top: 3px;
+      margin-bottom: 3px;
+      max-height: 90px;
+    }
+
+    td {
+      border-top: 1px solid #DDD;
+      padding: 8px;
+      line-height: 18px;
+      vertical-align: top;
+      img {
+        opacity: .2;
+      }
+      img.change-add {
+        border: 3px solid yellow;
+        opacity: 1;
+      }
+      img.change-move {
+        border: 3px dashed lightgreen;
+        opacity: 1;
+      }
+      img.change-delete {
+        border: 3px dashed gray;
+        opacity: 1;
+      }
+    }
+  }
+}

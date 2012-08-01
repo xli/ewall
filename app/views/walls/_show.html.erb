@@ -1,0 +1,47 @@
+<div class="row">
+  <%- snapshot = @wall.snapshots.first -%>
+  <div class="span12">
+    <div class='row'>
+      <div class="span7 clearfix">
+        <%- if @wall.snapshots.size == 1 -%>
+          <h4 style="float: left">
+            Snapshot uploaded <%= "#{time_ago_in_words(snapshot.timestamp)} ago (#{format_time(snapshot.timestamp)})" %>
+          </h4>
+        <%- else -%>
+          <h4 style="float: left">Changes between <%= link_to "#{time_ago_in_words(snapshot.timestamp)} ago (#{format_time(snapshot.timestamp)})", wall_snapshot_path(@wall, snapshot) %> and</h4>
+          <div class="btn-group snapshots-list">
+            <a class="btn dropdown-toggle btn-mini btn-primary" data-toggle="dropdown" href="#">
+              <span class="selection">Snapshots</span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <%- @wall.snapshots[1..15].each do |snap| -%>
+                <li><%= link_to "#{time_ago_in_words(snap.timestamp)} ago (#{format_time(snap.timestamp)})", wall_snapshot_diff_path(@wall, snapshot, :diff_with_snapshot_id => snap.id), :remote => true, :method => :get, :class => 'different-snapshot-link' %></li>
+              <%- end -%>
+            </ul>
+          </div>
+        <%- end -%>
+      </div>
+      <div class="span4">
+        <%= form_for [@wall, Snapshot.new],
+                    :html => {
+                      :multipart => true,
+                      :class => 'simple-snapshot-upload-form form-inline'
+                    } do |f| -%>
+          Upload new snapshot
+          <%= f.file_field :file, :class => 'text_field', :onchange => 'inProgress("Upload");this.form.submit();' %>
+        <% end -%>
+      </div>
+      <div class="span1">
+        <%= link_to "Mingle Wall", wall_mingle_wall_path(@wall), :class => 'btn btn-mini' %>
+      </div>
+    </div>
+    <%- if @wall.snapshots.size == 1 -%>
+      <%= render :partial => 'snapshots/columns', :locals => { columns: snapshot.grid.columns } %>
+    <%- else -%>
+    <div id='snapshots_difference'>
+      <%= image_tag '/images/loading.gif'%>
+    </div>
+    <% end -%>
+  </div>
+</div>

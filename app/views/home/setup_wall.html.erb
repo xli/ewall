@@ -1,0 +1,72 @@
+<header>
+  <h1>Setup a card wall EWall likes</h1>
+</header>
+<hr/>
+<div class='row'>
+  <div class="span4">
+    <h3>Materials recommendation: </h3>
+    <ul>
+      <li><span style="border: 1px solid red">quad ruled</span>, ivory paper card</li>
+      <li><span style="background-color: yellow">black</span> color wall with <span style="color: yellow; background-color: black">light</span> color cards</li>
+      <li><span style="background-color: black; color: white">white</span> color wall with <span style="background-color: yellow; color: red">deep</span> color cards</li>
+    </ul>
+  </div>
+  <div class="span4">
+    <h3>Setup recommendation: </h3>
+    <ul>
+      <li>Use card to define column head ("Ready for Dev", "Dev in Progress", "Done", etc.). See black & white wall examples. EWall assumes first row cards are column heads.</li>
+      <li>Ideally, cards should be the only thing on the wall. EWall can detect cards with team member pictures or notes near/on the card. But the more of these non-cards info on the wall, the more likely EWall will mis-detect the cards need to be tracked. </li>
+      <li>There should be more than 10 cards on the wall, including column heads.</li>
+      <li>Leave some room between columns, so that EWall can group cards into columns.</li>
+    </ul>
+  </div>
+  <div class="span4">
+    <h3>Photograph recommendation: </h3>
+    <ul>
+      <li>8-megapixel camera is good for a 3 meters width card wall in our test, for example: iPhone 4S.</li>
+      <li>A clear picture is more important than high resolution picture, so something like camera tripod fixing the camera can help a lot.</li>
+    </ul>
+  </div>
+</div>
+<hr/>
+<div>
+  <ul class="thumbnails">
+    <li class="span4">
+      <h3>Card example</h3>
+      <ul>
+        <li>Quad Ruled</li>
+        <li>Ivory Paper</li>
+        <li>3'' X 5'' </li>
+      </ul>
+      <a class="thumbnail">
+        <%= image_tag 'examples/card.png' %>
+      </a>
+    </li>
+    <li class="span4">
+      <h3>Black wall example</h3>
+      <p>Black wall is first card wall used to test EWall.
+        Most of colored cards work well on black wall.
+      <p>Do not use black card :)</p>
+      <a class="thumbnail">
+        <%= image_tag 'examples/black_wall.jpg' %>
+      </a>
+    </li>
+    <li class="span4">
+      <h3>White wall example</h3>
+      <p>Recommend deep color card, for example:
+        <span style='color:red'>red</span>,
+        dark,
+        <span style='color:blue'>blue</span>,
+        <span style='color:green'>green</span>
+        card
+      </p>
+      <p>Do not use
+        <span style='color:white; background-color: black'>white</span>
+        or <span style='color: yellow; background-color:black'>yellow</span>
+        color card</p>
+      <a class="thumbnail">
+        <%= image_tag 'examples/white_wall.jpg' %>
+      </a>
+    </li>
+  </ul>
+</div>
