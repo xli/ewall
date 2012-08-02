@@ -22,7 +22,6 @@ render_cards = (cards) ->
 show_diff = (columns, mingle_wall_columns) ->
   $.each columns, (index, cards) ->
     target = $(mingle_wall_columns[index])
-    cards.splice(0, 1)
     $.each cards, (i, card) ->
       card_img = $("<img class='card'/>").attr("src", card.image)
       card_div = target.find('.card-summary-number[identifier="' + card.identifier + '"]')[0]
@@ -38,6 +37,12 @@ show_diff = (columns, mingle_wall_columns) ->
             card_img.remove()
         else
           $('#mingle_wall').find('td.removed-cards').append(card_img)
+
+show_heads = (heads, mingle_wall_heads) ->
+  $.each heads, (index, card) ->
+    card_img = $("<img class='card'/>").attr("src", card.image)
+    if (mingle_wall_heads[index])
+      $(mingle_wall_heads[index]).append(card_img)
 
 $(document).ready ->
   if $('#mingle_wall').length
@@ -65,4 +70,5 @@ $(document).ready ->
         head.append($("<th class='removed-cards-head'/>").html("Unmatched Cards"))
         body.append($("<td class='removed-cards'/>"))
         $('#mingle_wall').html(table)
+        show_heads(resp.snapshot_heads, head.find('th'))
         show_diff(resp.snapshot_columns, body.find('td'))
