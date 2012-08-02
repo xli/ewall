@@ -17,3 +17,8 @@ Launch Application
     rake db:migrate
     rails s
     ./script/delayed_job start
+
+License
+---------------------
+
+You may use the EWall under the MIT License.
