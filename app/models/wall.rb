@@ -13,6 +13,10 @@ class Wall < ActiveRecord::Base
     !password.blank?
   end
 
+  def identifier
+    name.to_s.downcase.gsub(/[\W]/, '_')
+  end
+
   def new_snapshot(stream)
     self.snapshots.create!.tap do |snapshot|
       snapshot.image = "snapshot#{snapshot.id}_image#{File.extname(stream.original_filename)}"
@@ -26,5 +30,9 @@ class Wall < ActiveRecord::Base
         snapshot.taken_at = jpeg.date_time
       end
     end
+  end
+
+  def snapshots_path
+    File.join(Rails.public_path, 'snapshots', identifier)
   end
 end

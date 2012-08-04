@@ -1,11 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  image: 
+  image: snapshot1
   taken_at: 2012-06-20 16:42:12
   wall: one
+  height: 600
+  width: 800
+  in_analysis: 100
 
 two:
-  image: 
-  taken_at: 2012-06-20 16:42:12
+  image: snapshot2
+  taken_at: 2012-06-21 16:42:12
   wall: one
+  height: 300
+  width: 400
+  in_analysis: 100

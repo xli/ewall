@@ -1,8 +1,9 @@
 class Snapshot < ActiveRecord::Base
   belongs_to :wall
   has_many :cards, :dependent => :delete_all
-  attr_accessible :image, :taken_at
   after_create :ensure_root_directory
+
+  attr_accessible :image, :taken_at, :height, :in_analysis, :width
 
   def duplicate_cards
     sql = cards.identified.select("identifier, count(identifier) as count")
@@ -93,7 +94,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def uri
-    File.join('snapshots', strip(wall.name))
+    File.join('snapshots', wall.identifier)
   end
   def strip(name)
     name.to_s.downcase.gsub(/[\W]/, '_')
