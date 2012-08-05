@@ -25,6 +25,7 @@
       <li><%= link_to 'Snapshots', wall_snapshot_path(@wall, snapshot) %></li>
     <%- end -%>
     <li><%= link_to 'Edit', edit_wall_path(@wall) %></li>
+    <li><%= link_to 'Export', wall_export_path(@wall), :target => '_blank' %></li>
     <li><%= link_to 'Destroy', wall_path(@wall), :method => :delete, :data => {:confirm => 'Are you sure?'} %></li>
   </ul>
 </li>

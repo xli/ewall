@@ -35,4 +35,12 @@ class Wall < ActiveRecord::Base
   def snapshots_path
     File.join(Rails.public_path, 'snapshots', identifier)
   end
+
+  def export(file)
+    ExportImport.new.export(self, file)
+  end
+
+  def export_file(dir)
+    [File.join(dir, identifier), 'ewall'].join('.')
+  end
 end

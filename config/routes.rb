@@ -1,6 +1,8 @@
 EWall::Application.routes.draw do
 
   resources :walls do
+    get :export
+    get :download
     resources :mingle_walls do
       get :pull
     end

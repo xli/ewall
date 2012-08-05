@@ -3,25 +3,24 @@ require 'zipper'
 class ExportImport
   include Zipper
 
-  def initialize(target_dir='/tmp')
+  def initialize(target_dir=Dir.tmpdir)
     @target_dir = target_dir
   end
 
-  def export(wall)
-    dir = File.join(@target_dir, wall.identifier)
-    export_file = "#{dir}.ewall"
-    FileUtils.mkdir_p(dir)
+  def export(wall, export_file)
+    zip_dir = File.join(File.dirname(export_file), wall.identifier)
+    FileUtils.mkdir_p(zip_dir)
     begin
-      Dir.chdir(dir) do
+      Dir.chdir(zip_dir) do
         write('wall.json', wall)
         write('snapshots.json', wall.snapshots)
         wall.snapshots.each{|s| write("snapshot#{s.id}_cards.json", s.cards)}
         FileUtils.cp_r(wall.snapshots_path, 'snapshots')
-        file = zip(dir)
+        file = zip(zip_dir)
         FileUtils.mv(file, export_file)
       end
     ensure
-      FileUtils.rm_rf(dir)
+      FileUtils.rm_rf(zip_dir)
     end
     export_file
   end

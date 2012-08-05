@@ -78,6 +78,20 @@ class WallsController < ApplicationController
     end
   end
 
+  def export
+    @wall = Wall.find(params[:wall_id])
+    @export_file = @wall.export_file(Dir.tmpdir)
+    @wall.delay.export(@export_file)
+  end
+
+  def download
+    file = params[:export_file]
+    respond_to do |format|
+      format.ewall { send_file file, :filename => File.basename(file), :type => 'application/ewall' }
+      format.json { render json: File.exist?(file) }
+    end
+  end
+
   protected
   def load_wall
     @wall = Wall.find(params[:id]) if params[:id]
