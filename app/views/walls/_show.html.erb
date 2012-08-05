@@ -8,7 +8,7 @@
             Snapshot uploaded <%= "#{time_ago_in_words(snapshot.timestamp)} ago (#{format_time(snapshot.timestamp)})" %>
           </h4>
         <%- else -%>
-          <h4 style="float: left">Changes between <%= link_to "#{time_ago_in_words(snapshot.timestamp)} ago (#{format_time(snapshot.timestamp)})", wall_snapshot_path(@wall, snapshot) %> and</h4>
+          <h4 style="float: left">Snapshot <%= link_to "#{time_ago_in_words(snapshot.timestamp)} ago (#{format_time(snapshot.timestamp)})", wall_snapshot_path(@wall, snapshot) %> compares with </h4>
           <div class="btn-group snapshots-list">
             <a class="btn dropdown-toggle btn-mini btn-primary" data-toggle="dropdown" href="#">
               <span class="selection">Snapshots</span>
