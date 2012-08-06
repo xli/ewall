@@ -40,7 +40,7 @@
       <%- if snapshot.analyzed? -%>
         <%= render :partial => 'snapshots/columns', :locals => { columns: snapshot.grid.columns } %>
       <%- else -%>
-        Analyzing....
+        Analyzing first uploaded <%= link_to "snapshot", wall_snapshot_path(@wall, snapshot) %>....
       <% end -%>
     <%- else -%>
     <div id='snapshots_difference'>
