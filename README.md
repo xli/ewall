@@ -15,8 +15,8 @@ Launch Application
 
     export RAILS_ENV=production
     rake db:migrate
-    rails s
     ./script/delayed_job start
+    nohup rails s  > /dev/null 2>&1 &
 
 License
 ---------------------

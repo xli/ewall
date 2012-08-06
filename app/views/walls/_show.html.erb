@@ -37,7 +37,11 @@
       </div>
     </div>
     <%- if @wall.snapshots.size == 1 -%>
-      <%= render :partial => 'snapshots/columns', :locals => { columns: snapshot.grid.columns } %>
+      <%- if snapshot.analyzed? -%>
+        <%= render :partial => 'snapshots/columns', :locals => { columns: snapshot.grid.columns } %>
+      <%- else -%>
+        Analyzing....
+      <% end -%>
     <%- else -%>
     <div id='snapshots_difference'>
       <%= image_tag '/images/loading.gif'%>
