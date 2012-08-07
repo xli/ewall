@@ -47,7 +47,7 @@ class Card < ActiveRecord::Base
       'data-positive' => positive,
       'title' => title,
       'data-content' => 'Double click to see details.',
-      'data-url' => "/walls/#{snapshot.wall.id}/snapshots/#{snapshot.id}/cards/#{self.id}"
+      'data-url' => "/walls/#{snapshot.wall_id}/snapshots/#{snapshot.id}/cards/#{self.id}"
     }
   end
 
