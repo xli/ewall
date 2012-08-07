@@ -40,7 +40,7 @@ class GridTest < Test::Unit::TestCase
     assert_equal [item5, item7, item8], grid.columns[2].body
   end
 
-  def test_build_grid_with_overlap_heads
+  def test_build_grid_with_little_overlap_heads
     # item-i-1-tem2    item3
     # item4            item5
 
@@ -52,10 +52,11 @@ class GridTest < Test::Unit::TestCase
 
     grid = Grid.build([item1, item2, item3, item4, item5])
 
-    assert_equal 2, grid.columns.size
-    assert_equal [item1, item3], grid.columns.map(&:head)
+    assert_equal 3, grid.columns.size
+    assert_equal [item1, item2, item3], grid.columns.map(&:head)
     assert_equal [item4], grid.columns[0].body
-    assert_equal [item5], grid.columns[1].body
+    assert_equal [], grid.columns[1].body
+    assert_equal [item5], grid.columns[2].body
   end
 
   def test_fill_in_blank_cells

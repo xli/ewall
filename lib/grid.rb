@@ -8,16 +8,7 @@ module Grid
       heads = data.select {|item| item.y < head_bottom}
       body = (data - heads)
 
-      columns = heads.sort_by(&:x).inject([]) do |columns, head|
-        if columns.last && columns.last.inbound_x?(head.x)
-          warn "Overlap detected when building grid heads: "
-          warn "  column: #{columns.last.inspect}"
-          warn "  head: #{head.inspect}"
-          columns
-        else
-          columns << Column.new(head)
-        end
-      end
+      columns = heads.sort_by(&:x).map { |head| Column.new(head) }
 
       body.each do |item|
         column = columns.min_by{|column| column.distance(item.x)}
