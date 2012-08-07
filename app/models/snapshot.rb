@@ -1,7 +1,6 @@
 class Snapshot < ActiveRecord::Base
   belongs_to :wall
   has_many :cards, :dependent => :delete_all
-  after_create :ensure_root_directory
 
   attr_accessible :image, :taken_at, :height, :in_analysis, :width
 
@@ -18,11 +17,11 @@ class Snapshot < ActiveRecord::Base
   end
 
   def snapshot_uri
-    "/#{File.join(uri, image.to_s)}"
+    File.join('', wall.snapshots_uri, image.to_s)
   end
 
   def all_rects_uri
-    "/#{File.join(analysis_uri, 'all_rects.png')}"
+    File.join('', analysis_uri, 'all_rects.png')
   end
 
   def snapshot_analysis_path
@@ -85,17 +84,10 @@ class Snapshot < ActiveRecord::Base
     File.join(Rails.public_path, uri)
   end
 
-  def ensure_root_directory
-    FileUtils.mkdir_p(path(uri))
-  end
-
   def analysis_uri
-    File.join(uri, [strip(image), 'analysis'].join('_'))
+    File.join(wall.snapshots_uri, [strip(image), 'analysis'].join('_'))
   end
 
-  def uri
-    File.join('snapshots', wall.identifier)
-  end
   def strip(name)
     name.to_s.downcase.gsub(/[\W]/, '_')
   end

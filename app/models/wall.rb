@@ -6,6 +6,7 @@ class Wall < ActiveRecord::Base
   has_many :cards, :through => :snapshots
 
   has_one :mingle_wall, :dependent => :destroy
+  after_create :ensure_root_directory
 
   attr_accessible :name, :password
 
@@ -15,6 +16,14 @@ class Wall < ActiveRecord::Base
 
   def identifier
     name.to_s.downcase.gsub(/[\W]/, '_')
+  end
+
+  def snapshots_uri
+    File.join('snapshots', "#{identifier}_#{id}")
+  end
+
+  def snapshots_path
+    File.join(Rails.public_path, snapshots_uri)
   end
 
   def new_snapshot(stream)
@@ -32,10 +41,6 @@ class Wall < ActiveRecord::Base
     end
   end
 
-  def snapshots_path
-    File.join(Rails.public_path, 'snapshots', identifier)
-  end
-
   def export(file)
     ExportImport.new.export(self, file)
   end
@@ -43,4 +48,10 @@ class Wall < ActiveRecord::Base
   def export_file(dir)
     [File.join(dir, identifier), 'ewall'].join('.')
   end
+
+  private
+  def ensure_root_directory
+    FileUtils.mkdir_p(snapshots_path)
+  end
+
 end
