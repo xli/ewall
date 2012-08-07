@@ -15,7 +15,7 @@ class ExportImportTest < ActiveSupport::TestCase
     assert_equal 2, wall.snapshots.size
     s1 = wall.snapshots.find_by_image('snapshot1')
     assert_equal 2, s1.cards.size
-    assert File.exist?(File.join(Rails.public_path, 'snapshots', 'new_name', 'image'))
+    assert File.exist?(File.join(Rails.public_path, 'snapshots', "new_name_#{wall.id}", 'image'))
   end
 
 end
