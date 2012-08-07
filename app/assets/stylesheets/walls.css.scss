@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.first-snapshot #snapshot_file {
+  width: 100%;
+}
+
 .snapshots-list {
   float: left;
   margin-left: 5px
