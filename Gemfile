@@ -45,3 +45,5 @@ gem 'delayed_job_active_record'
 gem "daemons"
 
 gem 'statsample'
+
+gem 'quiet_assets', :group => :development

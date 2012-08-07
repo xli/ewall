@@ -88,6 +88,8 @@ GEM
     prawn-security (0.8.4)
     prawn-svg (0.9.1.11)
       prawn (>= 0.8.4)
+    quiet_assets (1.0.1)
+      railties (~> 3.1)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -182,6 +184,7 @@ DEPENDENCIES
   exifr
   jquery-rails
   jquery-ui-rails
+  quiet_assets
   rails (= 3.2.6)
   sass-rails (~> 3.2.3)
   sqlite3
