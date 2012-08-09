@@ -8,7 +8,7 @@ export_progress = (url, file) ->
     url: url + '.json'
     dataType: 'json'
     data:
-      export_file: file
+      file: file
     type: 'GET'
     success: (completed) ->
       if (completed == true)
@@ -18,9 +18,34 @@ export_progress = (url, file) ->
           export_progress(url, file)
         , 1000
 
+import_progress = (url) ->
+  $.ajax
+    url: url
+    dataType: 'json'
+    type: 'GET'
+    success: (completed) ->
+      if (completed == true)
+        window.location.href = '/walls'
+      else
+        setTimeout ->
+          import_progress(url)
+        , 1000
+
+
 $(document).ready ->
   if ($('#exporting_wall').length)
     exporting = $('#exporting_wall')
     file = exporting.data('export-file')
     url = exporting.data('url')
     export_progress(url, file)
+  if ($('#importing_wall').length)
+    exporting = $('#importing_wall')
+    url = exporting.data('url')
+    import_progress(url)
+  if ($('.import-ewall').length)
+    $('.import-ewall').click (e) ->
+      $('#import_form').dialog
+        title: 'Import wall'
+        width: 400
+        modal: true
+

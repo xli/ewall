@@ -10,6 +10,10 @@ class ExportImport
     @target_dir = File.join(tmpdir, SecureRandom.hex)
   end
 
+  def ensure_target_dir
+    FileUtils.mkdir_p(@target_dir)
+  end
+
   def export(wall, export_file)
     zip_dir = File.join(File.dirname(export_file), wall.identifier)
     FileUtils.mkdir_p(zip_dir)
@@ -29,7 +33,7 @@ class ExportImport
   end
 
   def import(export_file, options={})
-    FileUtils.mkdir_p(@target_dir)
+    ensure_target_dir
     unzip(export_file, @target_dir)
     protected_attrs = ['id', 'wall_id', 'snapshot_id', 'created_at', 'updated_at']
     Dir.chdir(@target_dir) do

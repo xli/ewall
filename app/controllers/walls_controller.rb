@@ -80,15 +80,29 @@ class WallsController < ApplicationController
 
   def export
     @wall = Wall.find(params[:wall_id])
-    @export_file = @wall.export_file(Dir.tmpdir)
-    @wall.delay.export(@export_file)
+    @file = @wall.export_file(Dir.tmpdir)
+    @wall.delay.export(@file)
   end
 
   def download
-    file = params[:export_file]
+    file = params[:file]
     respond_to do |format|
       format.ewall { send_file file, :filename => File.basename(file), :type => 'application/ewall' }
       format.json { render json: File.exist?(file) }
+    end
+  end
+
+  def import
+    @file = params[:file].tempfile.path
+    @importer = ExportImport.new
+    @importer.ensure_target_dir
+    @importer.delay.import(@file)
+  end
+
+  def import_progress
+    @importing_dir = params[:importing_dir]
+    respond_to do |format|
+      format.json { render json: !File.exist?(@importing_dir) }
     end
   end
 

@@ -3,6 +3,10 @@ EWall::Application.routes.draw do
   resources :walls do
     get :export
     get :download
+    collection do
+      post :import
+      get :import_progress
+    end
     resources :mingle_walls do
       get :pull
     end

@@ -19,3 +19,12 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_wall_path,
             :class => 'btn btn-primary' %>
+
+<%= link_to 'Import', '#', :class => 'btn import-ewall' %>
+
+<div id="import_form" style='display: none'>
+<%= form_tag import_walls_path, :multipart => true, :class => 'form-inline' do -%>
+  <label for="file"><h3>Exported file: <small>(this will have a '.ewall' extension)</small></h3></label>
+  <%= file_field_tag :file, :class => 'text_field', :onchange => 'inProgress("Upload");this.form.submit();' %>
+<% end -%>
+</div>
