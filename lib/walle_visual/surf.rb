@@ -3,18 +3,28 @@ require 'opencv'
 module WalleVisual
   class SURF
     include OpenCV
+    include WalleVisual::OpenCVHelper
 
     def load(file)
       IplImage.load(file, CV_LOAD_IMAGE_GRAYSCALE)
     end
 
     def surf(object_file)
-      object = load(object_file)
-      param = CvSURFParams.new(1500)
+      object = load(object_file).erode.equalize_hist
+      # return do_surf(object, 1500)
+      [2100, 1800, 1500, 1200, 900, 600, 300, 100].each do |param|
+        r = do_surf(object, param)
+        if r && r[0].size > 15
+          return r
+        end
+      end
+      return nil
+    end
+
+    def do_surf(object, param)
       begin
-        object.extract_surf(param)
+        object.extract_surf(CvSURFParams.new(param))
       rescue Exception => e
-        log_error(e)
         nil
       end
     end

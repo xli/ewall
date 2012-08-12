@@ -7,17 +7,13 @@ module Analysis
       end
     end
 
-    def self.find_similar_card(card, sample_cards)
-      card = SURFCard.surf([card]).first
-      SURFCard.surf(sample_cards).map { |ic| ic.match(card) }.compact.max_by(&:score).try(&:card)
-    end
-
     def self.surf(cards)
-      cards.map{|c| self.new(c)}.select(&:surf)
+      Array(cards).map{|c| self.new(c)}.select(&:surf)
     end
 
     def initialize(card)
       @card = card
+      @tool = WalleVisual::SURF.new
     end
 
     def identifier
@@ -25,12 +21,19 @@ module Analysis
     end
 
     def surf
-      @surf ||= WalleVisual::SURF.new.surf(@card.image_path)
+      @surf ||= @tool.surf(@card.image_path)
     end
 
-    def match(card)
-      if score = WalleVisual::SURF.new.match(card.surf, surf)
-        Match.new self, score
+    def match(arg)
+      case arg
+      when SURFCard
+        if score = @tool.match(arg.surf, surf)
+          Match.new self, score
+        end
+      when Array
+        arg.map { |ic| ic.match(self) }.compact
+      else
+        raise "Unsupported argument: #{arg.inspect}"
       end
     end
   end

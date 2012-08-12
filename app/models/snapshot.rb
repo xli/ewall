@@ -54,26 +54,12 @@ class Snapshot < ActiveRecord::Base
 
     size = self.cards.size
     card_matchs = self.cards.each_with_index.map do |card, index|
-      matchs = if surf_card = Analysis::SURFCard.surf([card]).first
-        identified_surf_cards.map { |ic| ic.match(surf_card) }.compact
+      if surf_card = Analysis::SURFCard.surf([card]).first
+        if mc = surf_card.match(identified_surf_cards).max_by(&:score).try(:card)
+          card.update_attribute(:identifier, mc.identifier)
+        end
       end
-      self.update_attribute(:in_analysis, 20 + index.to_f/size * 70)
-      matchs && matchs.size > 0 ? [card, matchs] : nil
-    end.compact.group_by {|card, matchs| matchs.size == 1 ? 'one' : 'multiple'}
-
-    matched_cards = []
-    Array(card_matchs['one']).each do |card, matchs|
-      match = matchs.first
-      matched_cards << match.card
-      card.update_attribute(:identifier, match.card.identifier)
-    end
-    self.update_attribute(:in_analysis, 95)
-
-    Array(card_matchs['multiple']).each do |card, matchs|
-      if match = matchs.reject{|m| matched_cards.include?(m.card)}.max_by(&:score)
-        matched_cards << match.card
-        card.update_attribute(:identifier, match.card.identifier)
-      end
+      self.update_attribute(:in_analysis, 20 + index.to_f/size * 80)
     end
   ensure
     self.update_attribute(:in_analysis, 100)
