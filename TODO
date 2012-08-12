@@ -1,4 +1,4 @@
-* multi-columns for one head problem
+* compare the variances (standard deviations of the image) to do Image Quality Assessment, use high quality image to do SURF
 * clean Snapshot#analysis! process
 * card identifier matching problem: performance
 * view large card popup style, change the behavior to ajax call instead of building UI by javascript
