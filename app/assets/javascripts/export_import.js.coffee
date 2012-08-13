@@ -1,7 +1,7 @@
 
 download_export_file = (url, file) ->
   $('#exporting_wall').html("<h2>Export finished</h2>")
-  window.location.href = url + '.ewall?export_file=' + encodeURIComponent(file)
+  window.location.href = url + '.ewall?file=' + encodeURIComponent(file)
 
 export_progress = (url, file) ->
   $.ajax
@@ -35,7 +35,7 @@ import_progress = (url) ->
 $(document).ready ->
   if ($('#exporting_wall').length)
     exporting = $('#exporting_wall')
-    file = exporting.data('export-file')
+    file = exporting.data('file')
     url = exporting.data('url')
     export_progress(url, file)
   if ($('#importing_wall').length)
