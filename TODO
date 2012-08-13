@@ -1,6 +1,7 @@
+* card identifier matching problem: performance
+* rename wall will lost wall identifier, causing export error and some other problems
 * compare the variances (standard deviations of the image) to do Image Quality Assessment, use high quality image to do SURF
 * clean Snapshot#analysis! process
-* card identifier matching problem: performance
 * view large card popup style, change the behavior to ajax call instead of building UI by javascript
 * column mapping with Mingle wall
 * change all place to use xx hours ago (do not use days ago)

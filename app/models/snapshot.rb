@@ -49,15 +49,15 @@ class Snapshot < ActiveRecord::Base
     identified_cards = wall.snapshots[0..4].map{|s| s.cards.positive.identified}.flatten.uniq_by(&:identifier)
     self.update_attribute(:in_analysis, 15)
 
-    identified_surf_cards = Analysis::SURFCard.surf(identified_cards)
+    identified_images = identified_cards.map(&:gray_image)
     self.update_attribute(:in_analysis, 20)
 
     size = self.cards.size
     card_matchs = self.cards.each_with_index.map do |card, index|
-      if surf_card = Analysis::SURFCard.surf([card]).first
-        if mc = surf_card.match(identified_surf_cards).max_by(&:score).try(:card)
-          card.update_attribute(:identifier, mc.identifier)
-        end
+      matches = card.gray_image.match_descriptors("SURF", "SURF", "FlannBased", identified_images)
+      if match = matches.max_by{|_, count| count}
+        match_card = identified_cards[match[0]]
+        card.update_attribute(:identifier, match_card.identifier)
       end
       self.update_attribute(:in_analysis, 20 + index.to_f/size * 80)
     end
