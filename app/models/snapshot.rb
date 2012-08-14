@@ -49,17 +49,15 @@ class Snapshot < ActiveRecord::Base
     identified_cards = wall.snapshots[0..4].map{|s| s.cards.positive.identified}.flatten.uniq_by(&:identifier)
     self.update_attribute(:in_analysis, 15)
 
-    identified_images = identified_cards.map(&:gray_image)
+    matcher = WalleVisual::ImageMatcher.new(identified_cards.map(&:image_path))
     self.update_attribute(:in_analysis, 20)
 
     size = self.cards.size
     card_matchs = self.cards.each_with_index.map do |card, index|
-      matches = card.gray_image.match_descriptors("SURF", "SURF", "FlannBased", identified_images)
-      if match = matches.max_by{|_, count| count}
-        match_card = identified_cards[match[0]]
-        card.update_attribute(:identifier, match_card.identifier)
+      if match_index = matcher.match(card.image_path)
+        card.update_attribute(:identifier, identified_cards[match_index].identifier)
       end
-      self.update_attribute(:in_analysis, 20 + index.to_f/size * 80)
+      self.update_attribute(:in_analysis, 20 + index * 80/size)
     end
   ensure
     self.update_attribute(:in_analysis, 100)

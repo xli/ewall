@@ -1,7 +1,7 @@
 
 require 'walle_visual/opencv_helper'
 require 'walle_visual/card_wall'
-require 'walle_visual/surf'
+require 'walle_visual/image_matcher'
 
 module WalleVisual
   include OpenCVHelper

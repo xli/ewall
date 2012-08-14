@@ -55,10 +55,6 @@ class Card < ActiveRecord::Base
     File.join(Rails.public_path, self.image)
   end
 
-  def gray_image
-    OpenCV::IplImage.load(image_path, OpenCV::CV_LOAD_IMAGE_GRAYSCALE)
-  end
-
   def new_card?
     positive.nil?
   end
