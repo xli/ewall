@@ -10,20 +10,24 @@ class Wall < ActiveRecord::Base
 
   attr_accessible :name, :password
 
+  def self.snapshots_root
+    'snapshots'
+  end
+
   def locked?
     !password.blank?
   end
 
   def identifier
-    name.to_s.downcase.gsub(/[\W]/, '_')
+    [name.to_s.downcase.gsub(/[\W]/, '_'), id].join('_')
   end
 
   def snapshots_uri
-    File.join('snapshots', "#{identifier}_#{id}")
+    snapshots_path[(Rails.public_path.size + 1)..-1]
   end
 
   def snapshots_path
-    File.join(Rails.public_path, snapshots_uri)
+    find_snapshots_path
   end
 
   def new_snapshot(stream)
@@ -49,9 +53,17 @@ class Wall < ActiveRecord::Base
     [File.join(dir, identifier), 'ewall'].join('.')
   end
 
-  private
   def ensure_root_directory
-    FileUtils.mkdir_p(snapshots_path)
+    FileUtils.mkdir_p(default_snapshots_path)
+  end
+
+  private
+  def default_snapshots_path
+    File.join(Rails.public_path, Wall.snapshots_root, identifier)
+  end
+
+  def find_snapshots_path
+    Dir[File.join(Rails.public_path, Wall.snapshots_root, '*')].find {|d| d =~ /_#{id}$/}
   end
 
 end

@@ -46,6 +46,6 @@ $(document).ready ->
     $('.import-ewall').click (e) ->
       $('#import_form').dialog
         title: 'Import wall'
-        width: 400
+        width: 500
         modal: true
 

@@ -3,6 +3,7 @@ require 'test_helper'
 class SnapshotsControllerTest < ActionController::TestCase
   setup do
     @snapshot = snapshots(:one)
+    @snapshot.wall.ensure_root_directory
   end
 
   test "should show snapshot" do

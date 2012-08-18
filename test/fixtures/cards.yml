@@ -12,10 +12,10 @@ one:
 
 two:
   image: 
-  identifier: 1
+  identifier: '1'
   x: 100
   y: 200
   width: 90
   height: 60
   snapshot: one
-  positive: 
+  positive: true

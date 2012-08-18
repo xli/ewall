@@ -29,7 +29,6 @@ class ExportImport
     ensure
       FileUtils.rm_rf(zip_dir)
     end
-    export_file
   end
 
   def import(export_file, options={})
@@ -38,15 +37,23 @@ class ExportImport
     protected_attrs = ['id', 'wall_id', 'snapshot_id', 'created_at', 'updated_at']
     Dir.chdir(@target_dir) do
       wall = Wall.create!(read('wall.json').except(*protected_attrs).merge(options))
+      wall_snapshots_path = wall.snapshots_path
+
+      FileUtils.rm_rf(wall_snapshots_path)
+      FileUtils.cp_r('snapshots', wall_snapshots_path)
 
       read('snapshots.json').each do |snapshot|
         s = wall.snapshots.create!(snapshot.except(*protected_attrs))
         read("snapshot#{snapshot['id']}_cards.json").each do |card|
-          s.cards.create!(card.except(*protected_attrs))
+          card_attrs = card.except(*protected_attrs)
+          # card image example: /snapshots/2_9/snapshot27_image_jpg_analysis/rect_141.png
+          if card_attrs['image']
+            relative_path = File.join(card_attrs['image'].split("/")[3..-1])
+            card_attrs['image'] = File.join('', wall.snapshots_uri, relative_path)
+          end
+          s.cards.create!(card_attrs)
         end
       end
-      FileUtils.rm_rf(wall.snapshots_path)
-      FileUtils.cp_r('snapshots', wall.snapshots_path)
       wall
     end
   ensure

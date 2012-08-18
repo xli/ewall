@@ -10,4 +10,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  teardown do
+    Wall.all.map do |wall|
+      wall.snapshots_path
+    end.compact.each do |path|
+      FileUtils.rm_rf(path)
+    end
+  end
 end
