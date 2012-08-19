@@ -1,10 +1,10 @@
 HIGH:
 
-* card identifier matching problem: performance
-    test it out on AWS
 
 LOW:
 
+* highlight cards when hover duplicated cards
+* ignore '#' for card identifier comparison with Mingle card wall cards
 * PSNR and SSIM, checking image similarity
 * compare the variances (standard deviations of the image) to do Image Quality Assessment, use high quality image to do SURF
 * clean Snapshot#analysis! process
