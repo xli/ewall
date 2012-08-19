@@ -80,7 +80,7 @@ class WallsController < ApplicationController
 
   def export
     @wall = Wall.find(params[:wall_id])
-    @file = @wall.export_file(Dir.tmpdir)
+    @file = @wall.export_file(ExportImport.tmpdir)
     @wall.delay.export(@file)
   end
 

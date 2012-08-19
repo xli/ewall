@@ -4,9 +4,13 @@ require 'securerandom'
 class ExportImport
   include Zipper
 
+  def self.tmpdir
+    Rails.root.join('tmp', 'export_imports')
+  end
+
   attr_reader :target_dir
 
-  def initialize(tmpdir=Dir.tmpdir)
+  def initialize(tmpdir=ExportImport.tmpdir)
     @target_dir = File.join(tmpdir, SecureRandom.hex)
   end
 
