@@ -77,6 +77,7 @@
   $(document).ready(function() {
     if ($('.new-card').length > 0) {
       $('#label_new_cards .icon-thumbs-down').click(function(e) {
+        $(e.target).siblings('input[name="card[identifier]"]').val('');
         $(e.target).siblings('input[name="card[positive]"]').val(0);
         $(e.target).parent('form').submit();
       });
