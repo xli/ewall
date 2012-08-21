@@ -9,18 +9,24 @@
     </div>
     <%= form_for [@wall, snapshot, Card.new], :remote => true, :html => { :method => 'PUT', :class => 'form-horizontal' } do |f| %>
       <%= f.hidden_field :positive, :value => '1' %>
-      Identifier: 
-      <%= f.text_field :identifier, :class => 'text_field typeahead', 
-            'data-source' => auto_complete_suggestion_cards.map(&:identifier).inspect,
-            'data-source-img' => auto_complete_suggestion_cards.map(&:image).inspect,
-            'data-provide' => "typeahead" %>
-      <p class="help-block">A number/name identifiers the card</p>
-      <button class="btn btn-large icon-thumbs-down" type="button">
-        Not a Card
-      </button>
-      <button class="btn btn-large btn-primary icon-thumbs-up" type="submit">
-        Is a Card
-      </button>
+      <div class="control-group">
+        <label class="control-label">Identifier</label>
+        <div class="controls">
+          <%= f.text_field :identifier, :class => 'text_field typeahead', 
+                'data-source' => auto_complete_suggestion_cards.map(&:identifier).inspect,
+                'data-source-img' => auto_complete_suggestion_cards.map(&:image).inspect,
+                'data-provide' => "typeahead" %>
+          <p class="help-block">A number/name identifiers the card</p>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-large icon-thumbs-down" type="button">
+          Not a Card
+        </button>
+        <button class="btn btn-large btn-primary icon-thumbs-up" type="submit">
+          Is a Card
+        </button>
+      </div>
     <%- end -%>
     <div class='icon-arrow-right'>
     </div>

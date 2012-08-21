@@ -26,8 +26,14 @@
   form {
     float: left;
   }
-  button {
-    margin-top: 35px;
+  .form-actions {
+    padding-left: 80px;
+  }
+  .control-label {
+    width: 80px;
+  }
+  .controls {
+    margin-left: 90px;
   }
 }
 

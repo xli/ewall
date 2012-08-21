@@ -31,7 +31,7 @@
     root.data('cards-size', newCards.length);
     root.dialog({
       title: title(root),
-      width: 930,
+      width: 990,
       modal: true,
       close: function() {
         // todo: refresh page, but not show labeling new cards dialog
@@ -77,9 +77,10 @@
   $(document).ready(function() {
     if ($('.new-card').length > 0) {
       $('#label_new_cards .icon-thumbs-down').click(function(e) {
-        $(e.target).siblings('input[name="card[identifier]"]').val('');
-        $(e.target).siblings('input[name="card[positive]"]').val(0);
-        $(e.target).parent('form').submit();
+        var form = $(e.target).parents('form');
+        form.find('input[name="card[identifier]"]').val('');
+        form.find('input[name="card[positive]"]').val(0);
+        form.submit();
       });
       $("#label_new_cards form").bind('ajax:complete', function() {
         labelNextNewCard();
