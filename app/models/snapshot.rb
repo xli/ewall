@@ -41,6 +41,7 @@ class Snapshot < ActiveRecord::Base
   end
 
   def analysis!
+    Time.zone = self.wall.time_zone
     self.update_attribute(:in_analysis, 5)
 
     self.cards = Analysis::Snapshot.new(snapshot_analysis_path, snapshot_path).cards

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120724162449) do
+ActiveRecord::Schema.define(:version => 20120821060715) do
 
   create_table "cards", :force => true do |t|
     t.string   "image"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 20120724162449) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.string   "password"
+    t.string   "time_zone"
   end
 
 end

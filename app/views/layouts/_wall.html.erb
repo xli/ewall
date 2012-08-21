@@ -4,9 +4,9 @@
   <li class="dropdown" name='snapshots'>
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
       Snapshot <%- if @snapshot.taken_at -%>
-        <%= @snapshot.width %>x<%= @snapshot.height %> Taken at <%= @snapshot.taken_at.localtime.strftime("%d %b %Y %I:%M%p") %>
+        <%= @snapshot.width %>x<%= @snapshot.height %> Taken at <%= full_time_format(@snapshot.taken_at) %>
       <%- else -%>
-        Uploaded at <%= @snapshot.created_at.localtime.strftime("%d %b %Y %I:%M%p") %>
+        Uploaded at <%= full_time_format(@snapshot.created_at) %>
       <%- end -%>
       <b class="caret"></b>
     </a>

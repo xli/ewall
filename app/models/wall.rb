@@ -8,7 +8,7 @@ class Wall < ActiveRecord::Base
   has_one :mingle_wall, :dependent => :destroy
   after_create :ensure_root_directory
 
-  attr_accessible :name, :password
+  attr_accessible :name, :password, :time_zone
 
   def self.snapshots_root
     'snapshots'

@@ -2,8 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :load_wall
   before_filter :authenticate
+  around_filter :set_time_zone
 
   protected
+  def set_time_zone(&block)
+    Time.zone = @wall.time_zone if @wall
+    yield
+  ensure
+    Time.zone = nil
+  end
   def load_wall
     @wall = Wall.find(params[:wall_id]) if params[:wall_id]
   end
