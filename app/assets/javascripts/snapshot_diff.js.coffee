@@ -5,10 +5,14 @@ changeFromColumn = (element) ->
 
 viewLargerImage = (srcImg) ->
   identifier = srcImg.attr('data-identifier');
-  saveButton = $('<button type="submit">Save</button>').addClass('btn btn-mini btn-primary');
+  saveButton = $('<button type="submit">Save</button>').addClass('btn btn-primary');
   cardIdentifier = $('<input type="text"/>').attr('value', identifier);
+  cardIdentifierDiv = $("<div/>").addClass('card-identifier-form clearfix').append(cardIdentifier).append(saveButton)
+  cardIdentifier.keydown (e) ->
+    saveButton.html('Save')
+
   cardIdentifier.change (e) ->
-    saveButton.html('Saving...').attr('disabled', true);
+    saveButton.addClass('disabled');
     $.ajax
       url: srcImg.attr('data-url')
       dataType: 'json'
@@ -17,9 +21,9 @@ viewLargerImage = (srcImg) ->
           identifier: cardIdentifier.val()
       type: 'PUT'
       success: ->
-        saveButton.html('Save').attr('disabled', false)
+        saveButton.html('Saved').removeClass('disabled')
+
   img = $("<img/>" ).attr("src", srcImg.attr('src')).attr("width", '100%');
-  cardIdentifierDiv = $("<div/>").addClass('form-inline').append(cardIdentifier).append(saveButton)
   div = $("<div/>").addClass('clearfix card').append(img).append(cardIdentifierDiv);
   div.dialog
     title: 'Card'

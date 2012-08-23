@@ -2,6 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.card-identifier-form {
+  padding: 3px;
+  input {
+    float: left;
+  }
+  button {
+    float: right;
+  }
+}
+
 #label_new_cards {
   img.card {
     width: 256px;

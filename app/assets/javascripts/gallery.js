@@ -44,10 +44,13 @@ function initGallery() {
   function viewLargerImage($link) {
     var srcImg = $link.siblings( "img" );
     var identifier = srcImg.attr('data-identifier');
-    var saveButton = $('<button type="submit">Save</button>').addClass('btn btn-mini btn-primary');
+    var saveButton = $('<button type="submit">Save</button>').addClass('btn btn-primary');
     var cardIdentifier = $('<input type="text"/>').attr('value', identifier);
+    cardIdentifier.keydown(function(e) {
+      saveButton.html('Save');
+    })
     cardIdentifier.change(function(e) {
-      saveButton.html('Saving...').attr('disabled', true);
+      saveButton.addClass('disabled');
       $.ajax({
         url: srcImg.attr('data-url'),
         dataType: 'json',
@@ -55,13 +58,13 @@ function initGallery() {
         type: 'PUT',
         success: function() {
           srcImg.siblings('a.card-identifier').html(cardIdentifier.val());
-          saveButton.html('Save').attr('disabled', false);
+          saveButton.html('Saved').removeClass('disabled');
         }
       });
     });
     
     var img = $("<img alt='" + srcImg.attr('alt') + "'/>" ).attr("src", srcImg.attr('src')).attr("width", '100%');
-    var cardIdentifierDiv = $("<div/>").addClass('form-inline').append(cardIdentifier).append(saveButton)
+    var cardIdentifierDiv = $("<div/>").addClass('card-identifier-form clearfix').append(cardIdentifier).append(saveButton)
     var div = $("<div/>").addClass('clearfix card').append(img).append(cardIdentifierDiv);
     div.dialog({
       title: 'Card',
