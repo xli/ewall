@@ -1,11 +1,14 @@
 require 'fileutils'
 require 'exifr'
+require 'securerandom'
+
 class Wall < ActiveRecord::Base
 
   has_many :snapshots, :dependent => :destroy, :order => 'taken_at desc, created_at desc'
   has_many :cards, :through => :snapshots
 
   has_one :mingle_wall, :dependent => :destroy
+  before_create :ensure_salt
   after_create :ensure_root_directory
 
   attr_accessible :name, :password, :time_zone
@@ -19,7 +22,7 @@ class Wall < ActiveRecord::Base
   end
 
   def identifier
-    [name.to_s.downcase.gsub(/[\W]/, '_'), id].join('_')
+    [name.to_s.downcase.gsub(/[\W]/, '_'), salt].join('_')
   end
 
   def snapshots_uri
@@ -57,13 +60,17 @@ class Wall < ActiveRecord::Base
     FileUtils.mkdir_p(default_snapshots_path)
   end
 
+  def ensure_salt
+    self.salt = SecureRandom.hex
+  end
+
   private
   def default_snapshots_path
     File.join(Rails.public_path, Wall.snapshots_root, identifier)
   end
 
   def find_snapshots_path
-    Dir[File.join(Rails.public_path, Wall.snapshots_root, '*')].find {|d| d =~ /_#{id}$/}
+    Dir[File.join(Rails.public_path, Wall.snapshots_root, '*')].find {|d| d =~ /_#{salt}$/}
   end
 
 end

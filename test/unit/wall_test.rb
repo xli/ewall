@@ -3,7 +3,12 @@ require 'test_helper'
 class WallTest < ActiveSupport::TestCase
   def test_identifier
     wall = walls(:one)
-    assert_equal "test_story_wall_#{wall.id}", wall.identifier
+    assert_equal "test_story_wall_#{wall.salt}", wall.identifier
+  end
+
+  def test_create_salt_when_create_wall
+    wall = Wall.create(:name => 'haha')
+    assert wall.salt
   end
 
   def test_should_create_snapshots_path_if_it_does_not_exist
@@ -24,7 +29,7 @@ class WallTest < ActiveSupport::TestCase
 
   def test_should_read_existing_snapshots_path
     wall = walls(:one)
-    path = File.join(Rails.public_path, 'snapshots', "x1_#{wall.id}")
+    path = File.join(Rails.public_path, 'snapshots', "x1_#{wall.salt}")
     FileUtils.mkdir_p(path)
     assert_equal path, wall.snapshots_path
   ensure
@@ -33,10 +38,10 @@ class WallTest < ActiveSupport::TestCase
 
   def test_snapshots_uri_should_be_relative_to_snapshots_path
     wall = walls(:one)
-    path = File.join(Rails.public_path, 'snapshots', "x1_#{wall.id}")
+    path = File.join(Rails.public_path, 'snapshots', "x1_#{wall.salt}")
     FileUtils.mkdir_p(path)
 
-    assert_equal "snapshots/x1_#{wall.id}", wall.snapshots_uri
+    assert_equal "snapshots/x1_#{wall.salt}", wall.snapshots_uri
   ensure
     FileUtils.rm_rf(path)
   end

@@ -38,7 +38,7 @@ class ExportImport
   def import(export_file, options={})
     ensure_target_dir
     unzip(export_file, @target_dir)
-    protected_attrs = ['id', 'wall_id', 'snapshot_id', 'created_at', 'updated_at']
+    protected_attrs = ['id', 'wall_id', 'snapshot_id', 'created_at', 'updated_at', 'salt']
     Dir.chdir(@target_dir) do
       wall = Wall.create!(read('wall.json').except(*protected_attrs).merge(options))
       wall_snapshots_path = wall.snapshots_path

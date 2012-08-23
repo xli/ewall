@@ -2,6 +2,8 @@
 
 one:
   name: test story wall
+  salt: salt1
 
 two:
   name: test super wall
+  salt: salt2
