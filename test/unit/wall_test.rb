@@ -3,7 +3,8 @@ require 'test_helper'
 class WallTest < ActiveSupport::TestCase
   def test_identifier
     wall = walls(:one)
-    assert_equal "test_story_wall_#{wall.salt}", wall.identifier
+    assert_equal "test_story_wall_#{wall.salt[2..6]}", wall.identifier
+    assert_equal "test_story_wall_#{wall.salt}", wall.identifier(:full => true)
   end
 
   def test_create_salt_when_create_wall

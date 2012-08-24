@@ -21,8 +21,8 @@ class Wall < ActiveRecord::Base
     !password.blank?
   end
 
-  def identifier
-    [name.to_s.downcase.gsub(/[\W]/, '_'), salt].join('_')
+  def identifier(options={full: false})
+    [name.to_s.downcase.gsub(/[\W]/, '_'), options[:full] ? salt : salt[2..6]].join('_')
   end
 
   def snapshots_uri
@@ -102,7 +102,7 @@ class Wall < ActiveRecord::Base
 
   private
   def default_snapshots_path
-    path(Wall.snapshots_root, identifier)
+    path(Wall.snapshots_root, identifier(:full => true))
   end
 
   def find_snapshots_path
