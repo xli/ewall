@@ -1,41 +1,31 @@
 <div id="label_new_cards" style='display: none'>
   <div class="progress"><div class="bar" style="width: 1%;"></div></div>
-  <div class="clearfix">
-    <div class="img-div well">
-      <div>card found in the snapshot</div>
-      <img src='/images/loading.gif' class='card'/>
-    </div>
-    <div class='icon-arrow-right'>
-    </div>
-    <%= form_for [@wall, snapshot, Card.new], :remote => true, :html => { :method => 'PUT', :class => 'form-horizontal' } do |f| %>
+  <div class="well">
+    <div>card found in the snapshot</div>
+    <%= form_for [@wall, snapshot, Card.new], :remote => true, :html => { :method => 'PUT' } do |f| %>
       <%= f.hidden_field :positive, :value => '1' %>
-      <div class="control-group">
-        <label class="control-label">Identifier</label>
-        <div class="controls">
-          <%= f.text_field :identifier, :class => 'text_field typeahead', 
+      <div class="clearfix">
+      <img src='/images/loading.gif' class='card'/>
+      <div class="identifier">
+        <%= f.label :identifier, "Card Identifier:" %>
+        <%= f.text_field :identifier, :class => 'text_field typeahead',
+                :placeholder => "A number/name identifiers the card",
                 'data-source' => auto_complete_suggestion_cards.map(&:identifier).inspect,
-                'data-source-img' => auto_complete_suggestion_cards.map(&:image).inspect,
+                'data-source-img' => auto_complete_suggestion_cards.map(&:image_uri).inspect,
                 'data-provide' => "typeahead" %>
-          <p class="help-block">A number/name identifiers the card</p>
-        </div>
       </div>
-      <div class="form-actions">
-        <button class="btn btn-mini icon-chevron-left prev-image" type="button">
+      <button class="btn btn-large icon-thumbs-down" type="button">
+        Not a Card, Next >
+      </button>
+      </div>
+      <div class="form-actions clearfix">
+        <button class="btn btn-large icon-chevron-left prev-image" type="button">
           Prev
         </button>
-        <button class="btn btn-large icon-thumbs-down" type="button">
-          Not a Card
-        </button>
         <button class="btn btn-large btn-primary icon-thumbs-up" type="submit">
-          Is a Card
+          Is a Card, Next >
         </button>
       </div>
     <%- end -%>
-    <div class='icon-arrow-right'>
-    </div>
-    <div class="img-div well">
-      <div>card in previous snapshots</div>
-      <img class='typeahead-img'/>
-    </div>
   </div>
 </div>

@@ -1,9 +1,10 @@
 (function() {
   function updateTypeaheadImg($this) {
-    var identifier = $this.$menu.find('.active').attr('data-value');
+    var activeItem = $this.$menu.find('.active')
+    var identifier = activeItem.attr('data-value');
     var index = $this.source.indexOf(identifier);
     var img = $this.$element.data('source-img')[index];
-    $('#label_new_cards').find('.typeahead-img').attr('src', img);
+    activeItem.append($("<img/>").attr("src", img));
   }
 
   $.fn.typeahead.Constructor.prototype.originalRender = $.fn.typeahead.Constructor.prototype.render
@@ -27,20 +28,16 @@
     var newCards = $('.new-card img').toArray();
     var root = $('#label_new_cards');
     root.data('cards', newCards);
-    root.data('cards-size', newCards.length);
     updateCardIndex(root, 0);
     root.dialog({
       title: title(root),
-      width: 990,
-      modal: true,
-      close: function() {
-        // todo: refresh page, but not show labeling new cards dialog
-      }
+      width: 700,
+      modal: true
     });
     labelNextNewCard();
   }
   function title(root) {
-    return 'Label New Cards (' + completed(root) + '/' + root.data('cards-size') + ')';
+    return 'Label New Cards (' + completed(root) + '/' + root.data('cards').length + ')';
   }
   function currentCardIndex(root) {
     return root.data('label-index');
@@ -69,7 +66,7 @@
     }
   }
   function labelCard(root, card) {
-    var completed_pers = completed(root) * 100/root.data('cards-size');
+    var completed_pers = completed(root) * 100/root.data('cards').length;
     root.dialog({title: title(root)});
     root.find('.progress .bar').css('width', completed_pers + '%');
     root.find('img.card').attr('src', card.src).fadeIn();
@@ -78,16 +75,6 @@
 
     var identifier = $(card).data('identifier');
     cardIdentifier(root).val(identifier).focus().select();
-    var typeahead_img = '/assets/card_not_found.png'
-    if (identifier) {
-      // convert to string, because it maybe number and got automatically converted to number in js
-      identifier = identifier + '';
-      var index = root.find('.typeahead').data('source').indexOf(identifier);
-      if (index && index >= 0) {
-        typeahead_img = root.find('.typeahead').data('source-img')[index];
-      }
-    }
-    root.find('.typeahead-img').attr('src', typeahead_img);
   }
   function updateLocalCardObject() {
     var root = $('#label_new_cards');

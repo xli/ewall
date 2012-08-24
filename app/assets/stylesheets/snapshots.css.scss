@@ -24,29 +24,25 @@
   img[src='/images/loading.gif'] {
     width: 64px;
   }
-  .prev-image {
-    margin-right: 50px;
+  input[name='card[identifier]'] {
+    width: 350px;
   }
-  .icon-arrow-right {
-    float: left;
-    padding: 5px;
-  }
-  .img-div {
-    float: left;
-    padding: 10px;
-    border: 1px solid gray;
-  }
-  form {
-    float: left;
+  .icon-thumbs-down {
+    margin-top: 80px;
+    float: right;
   }
   .form-actions {
-    padding-left: 5px;
+    padding: 10px 0 0 0;
+    .icon-thumbs-up {
+      float: right;
+    }
   }
-  .control-label {
-    width: 80px;
+  button.prev-image {
+    float: left;
   }
-  .controls {
-    margin-left: 90px;
+  .identifier {
+    float: left;
+    padding-left: 10px;
   }
 }
 
@@ -63,6 +59,9 @@
 
 .typeahead, .dropdown-menu {
   z-index: 1003;
+  img {
+    width: 256px;
+  }
 }
 
 .columns {
