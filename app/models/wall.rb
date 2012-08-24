@@ -33,14 +33,50 @@ class Wall < ActiveRecord::Base
     find_snapshots_path
   end
 
+  def snapshot_uri(snapshot)
+    File.join('', snapshots_uri, snapshot.image.to_s)
+  end
+
+  def snapshot_path(snapshot)
+    path(snapshot_uri(snapshot))
+  end
+
+  def all_rects_uri(snapshot)
+    File.join('', snapshot_analysis_uri(snapshot), 'all_rects.png')
+  end
+
+  def snapshot_analysis_path(snapshot)
+    path(snapshot_analysis_uri(snapshot))
+  end
+
+  def snapshot_analysis_uri(snapshot)
+    File.join(snapshots_uri, [strip(snapshot.image), 'analysis'].join('_'))
+  end
+
+  def card_snapshot(card)
+    snapshots.detect {|s| s.id == card.snapshot_id}
+  end
+
+  def card_image_uri
+    lambda do |card|
+      File.join('', snapshot_analysis_uri(card_snapshot(card)), card.image)
+    end
+  end
+  def card_image_path
+    lambda do |card|
+      path(card_image_uri[card])
+    end
+  end
+
   def new_snapshot(stream)
     self.snapshots.create!.tap do |snapshot|
       snapshot.image = "snapshot#{snapshot.id}_image#{File.extname(stream.original_filename)}"
-      File.open(snapshot.snapshot_path, 'wb') do |file|
+      path = snapshot_path(snapshot)
+      File.open(path, 'wb') do |file|
         file.write(stream.read)
       end
-      if snapshot.snapshot_path =~ /.jpg$/i
-        jpeg = EXIFR::JPEG.new(snapshot.snapshot_path)
+      if path =~ /.jpg$/i
+        jpeg = EXIFR::JPEG.new(path)
         snapshot.width = jpeg.width
         snapshot.height = jpeg.height
         snapshot.taken_at = jpeg.date_time
@@ -66,11 +102,19 @@ class Wall < ActiveRecord::Base
 
   private
   def default_snapshots_path
-    File.join(Rails.public_path, Wall.snapshots_root, identifier)
+    path(Wall.snapshots_root, identifier)
   end
 
   def find_snapshots_path
-    Dir[File.join(Rails.public_path, Wall.snapshots_root, '*')].find {|d| d =~ /_#{salt}$/}
+    Dir[path(Wall.snapshots_root, '*')].find {|d| d =~ /_#{salt}$/}
+  end
+
+  def path(*uri)
+    File.join(Rails.public_path, uri)
+  end
+
+  def strip(str)
+    str.to_s.downcase.gsub(/[\W]/, '_')
   end
 
 end

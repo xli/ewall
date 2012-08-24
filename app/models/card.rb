@@ -37,28 +37,6 @@ class Card < ActiveRecord::Base
     identifier.blank? ? 'Not identified' : identifier
   end
 
-  def data
-    {
-      'data-identifier' => identifier,
-      'data-x' => x,
-      'data-y' => y,
-      'data-height' => height,
-      'data-width' => width,
-      'data-positive' => positive,
-      'title' => title,
-      'data-content' => 'Double click to see details.',
-      'data-url' => "/walls/#{snapshot.wall_id}/snapshots/#{snapshot.id}/cards/#{self.id}"
-    }
-  end
-
-  def image_uri
-    File.join('', snapshot.analysis_uri, self.image)
-  end
-
-  def image_path
-    File.join(snapshot.snapshot_analysis_path, self.image)
-  end
-
   def new_card?
     positive.nil?
   end

@@ -11,7 +11,7 @@
         <%= f.text_field :identifier, :class => 'text_field typeahead',
                 :placeholder => "A number/name identifiers the card",
                 'data-source' => auto_complete_suggestion_cards.map(&:identifier).inspect,
-                'data-source-img' => auto_complete_suggestion_cards.map(&:image_uri).inspect,
+                'data-source-img' => auto_complete_suggestion_cards.map(&@wall.card_image_uri).inspect,
                 'data-provide' => "typeahead" %>
       </div>
       <button class="btn btn-large icon-thumbs-down" type="button">

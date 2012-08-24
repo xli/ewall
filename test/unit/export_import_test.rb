@@ -18,7 +18,7 @@ class ExportImportTest < ActiveSupport::TestCase
       s1 = wall.snapshots.find_by_image('snapshot1')
       assert_equal 2, s1.cards.size
       s1.cards.each do |card|
-        assert File.exist?(card.image_path)
+        assert File.exist?(wall.card_image_path[card])
       end
     end
   end
@@ -38,8 +38,8 @@ class ExportImportTest < ActiveSupport::TestCase
       assert_equal 2, s1.cards.size
       s1.cards.each do |card|
         assert_match /^rect_\d+\.png$/,  card.image
-        assert_match /^\/#{card.snapshot.analysis_uri}\/rect_\d+\.png$/,  card.image_uri
-        assert File.exist?(card.image_path)
+        assert_match /^\/#{wall.snapshot_analysis_uri(card.snapshot)}\/rect_\d+\.png$/,  wall.card_image_uri[card]
+        assert File.exist?(wall.card_image_path[card])
       end
     end
   end
@@ -49,8 +49,9 @@ class ExportImportTest < ActiveSupport::TestCase
     snapshots_path = wall.snapshots_path
     FileUtils.mkdir_p(snapshots_path)
     wall.cards.each_with_index do |c, i|
-      FileUtils.mkdir_p(File.dirname(c.image_path))
-      FileUtils.touch(c.image_path)
+      image_path = wall.card_image_path[c]
+      FileUtils.mkdir_p(File.dirname(image_path))
+      FileUtils.touch(image_path)
     end
     yield(wall)
   ensure

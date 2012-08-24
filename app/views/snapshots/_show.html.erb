@@ -2,9 +2,9 @@
 <div class="row-fluid">
   <div class="span3">
     <%- if snapshot.analyzed? -%>
-      <%= link_to image_tag(snapshot.all_rects_uri), snapshot.all_rects_uri, :class => 'all-rects' %>
+      <%= link_to image_tag(@wall.all_rects_uri(snapshot)), @wall.all_rects_uri(snapshot), :class => 'all-rects' %>
     <%- else -%>
-      <%= link_to image_tag(snapshot.snapshot_uri), snapshot.snapshot_uri, :class => 'snapshot' %>
+      <%= link_to image_tag(@wall.snapshot_uri(snapshot)), @wall.snapshot_uri(snapshot), :class => 'snapshot' %>
     <%- end -%>
     <ul class="nav nav-list">
       <li class="nav-header">

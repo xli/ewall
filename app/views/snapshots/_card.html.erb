@@ -1,5 +1,5 @@
 <li class="ui-widget-content ui-corner-all card <%= 'new-card' if card.new_card? %>">
-  <%= image_tag(card.image_uri, card.data) %>
+  <%= image_tag(@wall.card_image_uri[card], card_image_data(card)) %>
   <a href="#" title="View larger image" class="ui-icon ui-icon-zoomin">View larger</a>
   <a href="#" title="<%= card.identifier %>" class='card-identifier'><%= card.identifier.to_s.truncate(10) %></a>
   <%- unless card.positive.nil? -%>

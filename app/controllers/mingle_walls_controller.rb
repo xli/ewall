@@ -43,8 +43,8 @@ class MingleWallsController < ApplicationController
     html_body = @wall.mingle_wall.pull
     current_wall_grid = @wall.snapshots.first.grid
 
-    snapshot_columns = current_wall_grid.columns.map{|column| column.body.map{|card| {identifier: card.identifier, image: card.image_uri}}}
-    snapshot_heads = current_wall_grid.heads.map{|head| {identifier: head.identifier, image: head.image_uri}}
+    snapshot_columns = current_wall_grid.columns.map{|column| column.body.map{|card| {identifier: card.identifier, image: @wall.card_image_uri[card]}}}
+    snapshot_heads = current_wall_grid.heads.map{|head| {identifier: head.identifier, image: @wall.card_image_uri[head]}}
     render json: { html: html_body, snapshot_columns: snapshot_columns, snapshot_heads: snapshot_heads }
   rescue => e
     render json: { error: e.message }
