@@ -79,7 +79,6 @@ class WallsController < ApplicationController
   end
 
   def export
-    @wall = Wall.find(params[:wall_id])
     @file = @wall.export_file(ExportImport.tmpdir)
     @wall.delay.export(@file)
   end
@@ -108,6 +107,7 @@ class WallsController < ApplicationController
 
   protected
   def load_wall
-    @wall = Wall.find(params[:id]) if params[:id]
+    wall_id = params[:id] || params[:wall_id]
+    @wall = Wall.find(wall_id) if wall_id
   end
 end

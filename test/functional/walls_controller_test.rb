@@ -46,4 +46,10 @@ class WallsControllerTest < ActionController::TestCase
 
     assert_redirected_to walls_path
   end
+
+  test "export wall" do
+    get :export, wall_id: @wall
+    assert_response :success
+  end
+
 end
