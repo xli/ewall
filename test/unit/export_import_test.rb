@@ -23,6 +23,26 @@ class ExportImportTest < ActiveSupport::TestCase
     end
   end
 
+  def test_should_not_export_wall_salt
+    with_card_images(walls(:one)) do |wall|
+      to_file = wall.export_file(Dir.tmpdir)
+      @tool.export(wall, to_file)
+      @target_dir = File.join(ExportImport.tmpdir, SecureRandom.hex)
+      begin
+        FileUtils.mkdir_p(@target_dir)
+        @tool.unzip(to_file, @target_dir)
+        Dir.chdir(@target_dir) do
+          wall_attrs = ActiveSupport::JSON.decode File.read('wall.json')
+          assert_nil wall_attrs['salt']
+        end
+      ensure
+        FileUtils.rm_rf(@target_dir)
+      end
+      assert wall.salt
+      assert wall.reload.salt
+    end
+  end
+
   def test_export_import_after_renamed_ewall
     with_card_images(walls(:one)) do |wall|
       wall.update_attribute(:name, 'new name')

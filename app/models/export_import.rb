@@ -23,7 +23,9 @@ class ExportImport
     FileUtils.mkdir_p(zip_dir)
     begin
       Dir.chdir(zip_dir) do
-        write('wall.json', wall)
+        dwall = wall.dup
+        dwall.salt = nil
+        write('wall.json', dwall)
         write('snapshots.json', wall.snapshots)
         wall.snapshots.each{|s| write("snapshot#{s.id}_cards.json", s.cards)}
         FileUtils.cp_r(wall.snapshots_path, 'snapshots')
