@@ -5,7 +5,7 @@
       <tr>
         <%- grid.columns.each do |column| -%>
         <th>
-          <%= image_tag(column.head.image, column.head.data.merge(:class => 'head')) %>
+          <%= image_tag(column.head.image_uri, column.head.data.merge(:class => 'head')) %>
           <span class="badge badge-info"><%= column.body.size %></span>
         </th>
         <%- end -%>
@@ -20,13 +20,13 @@
         <%- grid.columns.each do |column| -%>
         <td class="column" style="width: <%= 100.0/(grid.columns.size + 1) %>%">
           <%- column.body.each do |card| -%>
-            <%= image_tag(card.image, card.data.merge(change(changes, card))) %>
+            <%= image_tag(card.image_uri, card.data.merge(change(changes, card))) %>
           <%- end -%>
         </td>
         <%- end -%>
         <td class="removed-cards">
           <%- delete_changes.each do |change| -%>
-            <%= image_tag(change.item.image, change.item.data.merge(change(changes, change.item))) %>
+            <%= image_tag(change.item.image_uri, change.item.data.merge(change(changes, change.item))) %>
           <%- end -%>
         </td>
       </tr>

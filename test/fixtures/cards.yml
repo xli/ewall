@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  image: 
+  image: rect_1.png
   identifier: 
   x: 10
   y: 20
@@ -11,7 +11,7 @@ one:
   positive: 
 
 two:
-  image: 
+  image: rect_2.png
   identifier: '1'
   x: 100
   y: 200

@@ -50,11 +50,6 @@ class ExportImport
         s = wall.snapshots.create!(snapshot.except(*protected_attrs))
         read("snapshot#{snapshot['id']}_cards.json").each do |card|
           card_attrs = card.except(*protected_attrs)
-          # card image example: /snapshots/2_9/snapshot27_image_jpg_analysis/rect_141.png
-          if card_attrs['image']
-            relative_path = File.join(card_attrs['image'].split("/")[3..-1])
-            card_attrs['image'] = File.join('', wall.snapshots_uri, relative_path)
-          end
           s.cards.create!(card_attrs)
         end
       end

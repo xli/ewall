@@ -4,7 +4,7 @@
       <tr>
         <%- columns.each do |column| -%>
         <th>
-          <%= image_tag(column.head.image, column.head.data.merge(:class => 'head')) %>
+          <%= image_tag(column.head.image_uri, column.head.data.merge(:class => 'head')) %>
           <span class="badge badge-info"><%= column.body.size %></span>
         </th>
         <%- end -%>
@@ -15,7 +15,7 @@
         <%- columns.each do |column| -%>
         <td class="column" style="width: <%= 100.0/columns.size %>%">
           <%- column.body.each do |card| -%>
-            <%= image_tag(card.image, card.data) %>
+            <%= image_tag(card.image_uri, card.data) %>
           <%- end -%>
         </td>
         <%- end -%>

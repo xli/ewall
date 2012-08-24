@@ -51,8 +51,12 @@ class Card < ActiveRecord::Base
     }
   end
 
+  def image_uri
+    File.join('', snapshot.analysis_uri, self.image)
+  end
+
   def image_path
-    File.join(Rails.public_path, self.image)
+    File.join(snapshot.snapshot_analysis_path, self.image)
   end
 
   def new_card?

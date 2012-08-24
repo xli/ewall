@@ -28,6 +28,10 @@ class Snapshot < ActiveRecord::Base
     path(analysis_uri)
   end
 
+  def analysis_uri
+    File.join(wall.snapshots_uri, [strip(image), 'analysis'].join('_'))
+  end
+
   def snapshot_path
     path(snapshot_uri)
   end
@@ -67,10 +71,6 @@ class Snapshot < ActiveRecord::Base
   private
   def path(uri)
     File.join(Rails.public_path, uri)
-  end
-
-  def analysis_uri
-    File.join(wall.snapshots_uri, [strip(image), 'analysis'].join('_'))
   end
 
   def strip(name)

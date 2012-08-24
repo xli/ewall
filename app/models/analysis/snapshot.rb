@@ -16,7 +16,7 @@ module Analysis
       data = YAML.load File.read(File.join(@snapshot_analysis_path, 'rects.yml'))
 
       data[:rects].map do |rect|
-        file = rect[:file].gsub(Rails.public_path, '')
+        file = rect[:file].gsub(@snapshot_analysis_path, '')
         x, y, width, height = rect[:rect]
         Card.new(:image => file, :x => x, :y => y, :width => width, :height => height)
       end
