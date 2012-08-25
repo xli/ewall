@@ -13,10 +13,8 @@ Install
 Launch Application
 ---------------------
 
-    export RAILS_ENV=production
-    rake db:migrate
-    ./script/delayed_job start
-    nohup rails s  > /dev/null 2>&1 &
+    rake db:migrate RAILS_ENV=production
+    ./script/server.sh start
 
 License
 ---------------------
