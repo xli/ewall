@@ -3,6 +3,8 @@ EWall
 
 EWall is a tool to track and digitalize your card wall.
 
+Checkout what it looks like here: http://xli.github.com/ewall
+
 Install
 ----------------------
 
