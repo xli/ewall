@@ -4,7 +4,7 @@ require 'securerandom'
 
 class Wall < ActiveRecord::Base
 
-  has_many :snapshots, :dependent => :destroy, :order => 'taken_at desc, created_at desc'
+  has_many :snapshots, :dependent => :destroy, :order => 'taken_at desc'
   has_many :cards, :through => :snapshots
 
   has_one :mingle_wall, :dependent => :destroy
@@ -81,6 +81,7 @@ class Wall < ActiveRecord::Base
         snapshot.height = jpeg.height
         snapshot.taken_at = jpeg.date_time
       end
+      snapshot.taken_at ||= snapshot.created_at
     end
   end
 
