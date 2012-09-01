@@ -20,8 +20,10 @@ class SnapshotsController < ApplicationController
       if @snapshot.save
         @snapshot.delay.analysis!
         format.html { redirect_to [@wall, @snapshot] }
+        format.json { render json: @snapshot, status: :created, location: [@wall, @snapshot] }
       else
         format.html { redirect_to [@wall, @snapshot], notice: 'Upload snapshot failed.' }
+        format.json { render json: @snapshot.errors, status: :unprocessable_entity }
       end
     end
   end
