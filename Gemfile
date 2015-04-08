@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
+gem 'jquery-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -47,3 +48,4 @@ gem "daemons"
 gem 'statsample'
 
 gem 'quiet_assets', :group => :development
+gem 'ruby-opencv'
